@@ -59,8 +59,6 @@ addTaskButton.addEventListener('click',() => {
     add = true;
     addTaskButton.innerText = "Add Task";
     }
-
-
 });
 
 
@@ -94,11 +92,10 @@ function addTaskToDOM(object){
     edit.innerHTML = "Edit";
     edit.addEventListener('click',() =>{
         let editor = document.getElementById(`${object.number}_task`).parentElement;
-        editor.innerHTML
+       // taskBoard.insertBefore(addinput(editor),addTaskButton);
+
 
     });
-
-
 
     buttonContainter.appendChild(del);
     buttonContainter.appendChild(edit);
@@ -110,3 +107,31 @@ function addTaskToDOM(object){
 
     return(container);
 }
+
+
+// function addinput(object){
+
+//     let aggregator = document.createElement("div");
+//     aggregator.setAttribute("id","inputs");
+
+//     let titleBar = document.createElement("input");
+//     titleBar.setAttribute("id","title");
+//     titleBar.innerText = object.title;
+
+//     let dueDateBar = document.createElement("input");
+//     dueDateBar.setAttribute("id","dueDate");
+//     dueDateBar.setAttribute("type","date");
+//     dueDateBar.innerText = object.date;
+
+
+//     let descriptionBar = document.createElement("input");
+//     descriptionBar.setAttribute("id","descriptionBar");
+//     descriptionBar.innerText = object.description;
+
+//     aggregator.appendChild(titleBar);
+//     aggregator.appendChild(dueDateBar);
+//     aggregator.appendChild(descriptionBar);
+
+//     return(aggregator);
+
+// }
