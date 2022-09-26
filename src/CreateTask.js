@@ -1,14 +1,12 @@
 
 
 
-export default function addTask(){
-    
+export default function addTask(title,date,description){
+
+    return (createTask(title,date,description));
+
+
 }
-
-
-
-
-
 
 
 
