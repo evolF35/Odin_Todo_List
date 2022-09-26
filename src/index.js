@@ -14,6 +14,8 @@ let edit = false;
 addTaskButton.addEventListener('click',() => {
 
     if(add == true){
+
+
         i++;
 
         let title = document.getElementById('title').value;
@@ -33,7 +35,6 @@ addTaskButton.addEventListener('click',() => {
         add = false;
         addTaskButton.innerText = "Create Task";
     }
-
     else{
     let aggregator = document.createElement("div");
     aggregator.setAttribute("id","inputs");
@@ -97,11 +98,13 @@ function addTaskToDOM(object){
         let editor = document.getElementById(`${object.number}_task`).parentElement;
         console.log(editor);
 
-        let oldTitle = editor.taskTitleDOM;
+        let peas = editor.getElementsByTagName('p');
 
-        taskBoard.insertBefore(addInputEdit(oldTitle,editor.childNodes[1].text,editor.childNodes[2].text),addTaskButton);
+        taskBoard.insertBefore(addInputEdit(peas[0].innerText,peas[1].innerText,peas[2].innerText),addTaskButton);
         addTaskButton.innerText = "Edit Task";
-        edit = true;
+
+        editor.remove();
+
     });
 
     buttonContainter.appendChild(del);
@@ -124,21 +127,25 @@ function addInputEdit(title,dueDate,description){
     let titleBar = document.createElement("input");
     titleBar.setAttribute("id","title");
     console.log(title);
-    titleBar.innerText = title;
+    titleBar.value = title;
 
     let dueDateBar = document.createElement("input");
     dueDateBar.setAttribute("id","dueDate");
     dueDateBar.setAttribute("type","date");
-    dueDateBar.innerText = dueDate;
+    dueDateBar.value = dueDate;
 
 
     let descriptionBar = document.createElement("input");
     descriptionBar.setAttribute("id","descriptionBar");
-    descriptionBar.innerText = description;
+    descriptionBar.value = description;
 
     aggregator.appendChild(titleBar);
     aggregator.appendChild(dueDateBar);
     aggregator.appendChild(descriptionBar);
+
+    add = true;
+    edit = true
+
 
     return(aggregator);
 }
