@@ -6,12 +6,15 @@ let addTaskButton = document.getElementById("addTaskButton");
 let taskBoard = document.querySelector(".taskBoard");
 
 let add = false;
-
+let i = 0;
+let currentProject = "";
 
 addTaskButton.addEventListener('click',() => {
 
     if(add == true){
     
+        i++;
+
         let title = document.getElementById('title').value;
 
         console.log(title);
@@ -19,7 +22,7 @@ addTaskButton.addEventListener('click',() => {
         let dDate = document.getElementById('dueDate').value;
         let desCript = document.getElementById('descriptionBar').value;
 
-        let newTask = addTask(title,dDate,desCript);
+        let newTask = addTask(title,dDate,desCript,i,currentProject);
 
         let pastForm = document.getElementById("inputs");
         pastForm.remove();
@@ -76,16 +79,26 @@ function addTaskToDOM(object){
     deCritp.innerText = object.description;
 
     let buttonContainter = document.createElement('div');
-    buttonContainter.setAttribute("class","taskButtons");
+    
+    buttonContainter.setAttribute("id",`${object.number}_task`);
+    buttonContainter.classList.add("taskButtons");
 
     let del = document.createElement('button');
     del.innerText = "Delete";
     del.addEventListener('click',() =>{
-
+        let removal = document.getElementById(`${object.number}_task`).parentElement;
+        removal.remove();
     });
 
     let edit = document.createElement('button');
     edit.innerHTML = "Edit";
+    edit.addEventListener('click',() =>{
+        let editor = document.getElementById(`${object.number}_task`).parentElement;
+        editor.innerHTML
+
+    });
+
+
 
     buttonContainter.appendChild(del);
     buttonContainter.appendChild(edit);
