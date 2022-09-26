@@ -1,34 +1,39 @@
 import addTask from './CreateTask';
 
-
-
 console.log("her");
-
 
 let addTaskButton = document.getElementById("addTaskButton");
 let taskBoard = document.querySelector(".taskBoard");
 
 let add = false;
-let create = false;
+
 
 addTaskButton.addEventListener('click',() => {
 
-
-    if(add == true && create == false){
+    if(add == true){
     
         let title = document.getElementById('title').value;
+
+        console.log(title);
+
         let dDate = document.getElementById('dueDate').value;
         let desCript = document.getElementById('descriptionBar').value;
 
         let newTask = addTask(title,dDate,desCript);
 
-        
+        let pastForm = document.getElementById("inputs");
+        pastForm.remove();
+
+        taskBoard.insertBefore(addTaskToDOM(newTask),addTaskButton);
+
+        add = false;
+        addTaskButton.innerText = "Create Task";
 
     }
 
-
-    if(add == false){
+    else{
     let aggregator = document.createElement("div");
+    aggregator.setAttribute("id","inputs");
 
     let titleBar = document.createElement("input");
     titleBar.setAttribute("id","title");
@@ -52,5 +57,40 @@ addTaskButton.addEventListener('click',() => {
     addTaskButton.innerText = "Add Task";
     }
 
+
 });
 
+
+function addTaskToDOM(object){
+    
+    let container = document.createElement('div');
+    container.setAttribute("class","task");
+
+    let title = document.createElement('p');
+    title.innerText = object.title;
+
+    let dueDate = document.createElement('p');
+    dueDate.innerText = object.date;
+
+    let deCritp = document.createElement('p');
+    deCritp.innerText = object.description;
+
+    let buttonContainter = document.createElement('div');
+    buttonContainter.setAttribute("class","taskButtons");
+
+    let del = document.createElement('button');
+    del.innerText = "Delete";
+
+    let edit = document.createElement('button');
+    edit.innerHTML = "Edit";
+
+    buttonContainter.appendChild(del);
+    buttonContainter.appendChild(edit);
+
+    container.appendChild(title);
+    container.appendChild(dueDate);
+    container.appendChild(deCritp);
+    container.appendChild(buttonContainter);
+
+    return(container);
+}
