@@ -80,6 +80,9 @@ function addTaskToDOM(object){
 
     let del = document.createElement('button');
     del.innerText = "Delete";
+    del.addEventListener('click',() =>{
+
+    });
 
     let edit = document.createElement('button');
     edit.innerHTML = "Edit";
