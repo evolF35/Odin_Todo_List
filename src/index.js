@@ -171,13 +171,20 @@ addProjectButton.addEventListener('click',()=>{
     taskBoardTitle.appendChild(addPorjectButton);
 
     addTaskButton.style.display = "none";
-    allTasks.style.display = "none";
+
+    
+
 
     addPorjectButton.addEventListener('click',()=>{
         taskBoardTitle.innerText = name.value;
 
         let newP = document.createElement('p');
         newP.innerText = taskBoardTitle.innerText;
+
+        newP.addEventListener('click',()=>{
+            taskBoardTitle.innerText = newP.innerText;
+        });
+
         listofProjects.appendChild(newP);
 
         addTaskButton.style.display = "";
@@ -187,3 +194,5 @@ addProjectButton.addEventListener('click',()=>{
 
 
     });
+
+
