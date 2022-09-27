@@ -8,7 +8,7 @@ const projectFactory = (title,number) => {
     return{title,number};
 };
 
-function createTask(title,number) {
+function createProject(title,number) {
 
     let project = projectFactory(title,number);
 
