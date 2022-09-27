@@ -157,7 +157,7 @@ let addProjectButton = document.getElementById("addProjectButton");
 
 let listofProjects = document.querySelector(".listProjects");
 
-
+let allTasks = document.querySelectorAll(".task");
 
 addProjectButton.addEventListener('click',()=>{
 
@@ -171,6 +171,7 @@ addProjectButton.addEventListener('click',()=>{
     taskBoardTitle.appendChild(addPorjectButton);
 
     addTaskButton.style.display = "none";
+    allTasks.style.display = "none";
 
     addPorjectButton.addEventListener('click',()=>{
         taskBoardTitle.innerText = name.value;
