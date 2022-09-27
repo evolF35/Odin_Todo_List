@@ -5,9 +5,12 @@ console.log("her");
 let addTaskButton = document.getElementById("addTaskButton");
 let taskBoard = document.querySelector(".taskBoard");
 
+let taskBoardTitle = document.querySelector(".taskBoardTitle");
+
 let add = false;
 let i = 0;
 let currentProject = "";
+let porjectAdd = false;
 
 let edit = false;
 
@@ -152,9 +155,34 @@ function addInputEdit(title,dueDate,description){
 
 let addProjectButton = document.getElementById("addProjectButton");
 
+let listofProjects = document.querySelector(".listProjects");
+
+
+
 addProjectButton.addEventListener('click',()=>{
 
-        
+    taskBoardTitle.innerText = "";
+    let name = document.createElement("input");
+    name.placeholder = "Project_Name";
+    taskBoardTitle.appendChild(name);
+
+    let addPorjectButton = document.createElement("button");
+    addPorjectButton.innerText = "Add Project";
+    taskBoardTitle.appendChild(addPorjectButton);
+
+    addTaskButton.style.display = "none";
+
+    addPorjectButton.addEventListener('click',()=>{
+        taskBoardTitle.innerText = name.value;
+
+        let newP = document.createElement('p');
+        newP.innerText = taskBoardTitle.innerText;
+        listofProjects.appendChild(newP);
+
+        addTaskButton.style.display = "";
+
+        }
+    );
 
 
-});
+    });
