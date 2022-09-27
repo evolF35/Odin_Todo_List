@@ -14,8 +14,6 @@ let edit = false;
 addTaskButton.addEventListener('click',() => {
 
     if(add == true){
-
-
         i++;
 
         let title = document.getElementById('title').value;
@@ -149,3 +147,14 @@ function addInputEdit(title,dueDate,description){
 
     return(aggregator);
 }
+
+
+
+let addProjectButton = document.getElementById("addProjectButton");
+
+addProjectButton.addEventListener('click',()=>{
+
+        
+
+
+});
