@@ -28,7 +28,5 @@ function createTask(title,date,description,number,project) {
 
     let task = taskFactory(title,date,description,number,project);
 
-    console.log(task);
-
 return(task);
 }

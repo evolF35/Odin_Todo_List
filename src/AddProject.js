@@ -12,8 +12,6 @@ function createProject(title,number) {
 
     let project = projectFactory(title,number);
 
-    console.log(project);
-
 return(project);
 }
 

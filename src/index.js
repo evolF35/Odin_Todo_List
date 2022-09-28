@@ -1,15 +1,15 @@
 import addTask from './CreateTask';
 
-console.log("her");
 
 let addTaskButton = document.getElementById("addTaskButton");
+addTaskButton.style.display = "none";
 let taskBoard = document.querySelector(".taskBoard");
 
 let taskBoardTitle = document.querySelector(".taskBoardTitle");
 
 let add = false;
 let i = 0;
-let currentProject = "";
+let currentProject = taskBoardTitle.innerText;
 let porjectAdd = false;
 
 let edit = false;
@@ -21,13 +21,14 @@ addTaskButton.addEventListener('click',() => {
 
         let title = document.getElementById('title').value;
 
-        console.log(title);
 
         let dDate = document.getElementById('dueDate').value;
         let desCript = document.getElementById('descriptionBar').value;
 
-        let newTask = addTask(title,dDate,desCript,i,currentProject);
+        console.log(currentProject);
 
+        let newTask = addTask(title,dDate,desCript,i,currentProject);
+        
         let pastForm = document.getElementById("inputs");
         pastForm.remove();
 
@@ -97,7 +98,6 @@ function addTaskToDOM(object){
     edit.innerHTML = "Edit";
     edit.addEventListener('click',() =>{
         let editor = document.getElementById(`${object.number}_task`).parentElement;
-        console.log(editor);
 
         let peas = editor.getElementsByTagName('p');
 
@@ -127,7 +127,6 @@ function addInputEdit(title,dueDate,description){
 
     let titleBar = document.createElement("input");
     titleBar.setAttribute("id","title");
-    console.log(title);
     titleBar.value = title;
 
     let dueDateBar = document.createElement("input");
@@ -172,23 +171,26 @@ addProjectButton.addEventListener('click',()=>{
 
     addTaskButton.style.display = "none";
 
-    
-
 
     addPorjectButton.addEventListener('click',()=>{
         taskBoardTitle.innerText = name.value;
 
         let newP = document.createElement('p');
         newP.innerText = taskBoardTitle.innerText;
+        currentProject = newP.innerText;
+
 
         newP.addEventListener('click',()=>{
             taskBoardTitle.innerText = newP.innerText;
+            currentProject = newP.innerText;
+
+
+
         });
 
         listofProjects.appendChild(newP);
 
         addTaskButton.style.display = "";
-
         }
     );
 
@@ -197,3 +199,8 @@ addProjectButton.addEventListener('click',()=>{
     });
 
 
+function renderTasks(project){
+
+
+
+}
