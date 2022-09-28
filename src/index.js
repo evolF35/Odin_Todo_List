@@ -1,4 +1,5 @@
-import addTask from './CreateTask';
+import addTask, { returnTaskArray, tasksArray } from './CreateTask';
+
 
 
 let addTaskButton = document.getElementById("addTaskButton");
@@ -28,6 +29,8 @@ addTaskButton.addEventListener('click',() => {
         console.log(currentProject);
 
         let newTask = addTask(title,dDate,desCript,i,currentProject);
+
+        
         
         let pastForm = document.getElementById("inputs");
         pastForm.remove();
@@ -201,6 +204,8 @@ addProjectButton.addEventListener('click',()=>{
 
 function renderTasks(project){
 
-
+    let tasks = returnTaskArray();
+    
+    return(tasks);
 
 }

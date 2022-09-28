@@ -1,9 +1,17 @@
 
+let tasksArray = [];
+
 export default function addTask(title,date,description,number,project){
+
     return (createTask(title,date,description,number,project));
 }
 
- export function changeTitle(object,title){
+function returnTaskArray(){
+    return(tasksArray);
+}
+
+
+export function changeTitle(object,title){
         object.title = title;
     }
 
@@ -19,7 +27,6 @@ export function changeProject(object,project){
         object.project = project;
     }
 
-
 const taskFactory = (title,date,description,number,project) => {
     return{title,date,description,number,project};
 };
@@ -27,6 +34,8 @@ const taskFactory = (title,date,description,number,project) => {
 function createTask(title,date,description,number,project) {
 
     let task = taskFactory(title,date,description,number,project);
+    tasksArray.push(task);
 
-return(task);
+
+    return(task);
 }
