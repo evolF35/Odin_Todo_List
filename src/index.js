@@ -1,7 +1,5 @@
 import addTask from './CreateTask';
-import returnTaskArray from './CreateTask';
-
-
+import { tasksArray } from './CreateTask';
 
 
 let addTaskButton = document.getElementById("addTaskButton");
@@ -30,8 +28,9 @@ addTaskButton.addEventListener('click',() => {
 
         let newTask = addTask(title,dDate,desCript,i,currentProject);
 
-        console.log(returnTaskArray());
-        
+        console.log(tasksArray);
+
+
         let pastForm = document.getElementById("inputs");
         pastForm.remove();
 
@@ -164,6 +163,10 @@ let allTasks = document.querySelectorAll(".task");
 addProjectButton.addEventListener('click',()=>{
 
     taskBoardTitle.innerText = "";
+    
+    let allTasks = document.querySelectorAll(".task");
+    allTasks.forEach(task => task.remove());
+
     let name = document.createElement("input");
     name.placeholder = "Project_Name";
     taskBoardTitle.appendChild(name);
@@ -187,6 +190,7 @@ addProjectButton.addEventListener('click',()=>{
             taskBoardTitle.innerText = newP.innerText;
             currentProject = newP.innerText;
 
+            (renderTasks(getTasks(currentProject)));
 
 
         });
@@ -202,10 +206,19 @@ addProjectButton.addEventListener('click',()=>{
     });
 
 
-function renderTasks(project){
+function getTasks(project){
 
-    let tasks = returnTaskArray();
-    
+    let tasks = tasksArray.filter(task => task.project == project);
+
     return(tasks);
+}
 
+
+function renderTasks(tasks){
+
+    let allTasks = document.querySelectorAll(".task");
+    allTasks.forEach(task => task.remove());
+
+    tasks.forEach(task => taskBoard.insertBefore(addTaskToDOM(task),addTaskButton));
+    
 }
