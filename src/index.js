@@ -1,6 +1,8 @@
 import addTask from './CreateTask';
 import { tasksArray } from './CreateTask';
 
+
+
 var current = new Date();
 
 
@@ -268,10 +270,12 @@ tasksDueToday.addEventListener('click',() => {
     let tomorrow = new Date();
     tomorrow.setDate(current.getDate()+1);
 
-    console.log((tomorrow));
-    console.log(tomorrow.toLocaleDateString());
+    //renderTasks(tasksArray.filter(task => (task.dueDate < (tomorrow.toLocaleDateString()))));
 
-    renderTasks(tasksArray.filter(task => console.log(task.dueDate < (tomorrow.toLocaleDateString()))));
+
+    let a = tasksArray.forEach(task => task.dueDate.toUTCString());
+
+    
 
 })
 
