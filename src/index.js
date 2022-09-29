@@ -98,10 +98,6 @@ function addTaskToDOM(object){
 
         let huell = number.id;
 
-        console.log(removal);
-        console.log(number);
-        console.log(huell);
-
         let task_number = huell.replace("_task,");
 
 
@@ -122,7 +118,14 @@ function addTaskToDOM(object){
         taskBoard.insertBefore(addInputEdit(peas[0].innerText,peas[1].innerText,peas[2].innerText),addTaskButton);
         addTaskButton.innerText = "Edit Task";
 
+        let number = editor.lastChild;
+        let huell = number.id;
+        let task_number = huell.replace("_task,");
+        tasksArray.splice(task_number,1);
+
+
         editor.remove();
+
 
     });
 
@@ -195,6 +198,9 @@ addProjectButton.addEventListener('click',()=>{
 
 
     addPorjectButton.addEventListener('click',()=>{
+        
+        if(name.value != ""){
+
         taskBoardTitle.innerText = name.value;
 
         let newP = document.createElement('p');
@@ -215,11 +221,13 @@ addProjectButton.addEventListener('click',()=>{
 
         addTaskButton.style.display = "";
         }
+    }
     );
 
+    }
     
 
-    });
+    );
 
 
 function getTasks(project){
