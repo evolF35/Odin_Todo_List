@@ -93,7 +93,23 @@ function addTaskToDOM(object){
     del.innerText = "Delete";
     del.addEventListener('click',() =>{
         let removal = document.getElementById(`${object.number}_task`).parentElement;
+
+        let number = removal.lastChild;
+
+        let huell = number.id;
+
+        console.log(removal);
+        console.log(number);
+        console.log(huell);
+
+        let task_number = huell.replace("_task,");
+
+
         removal.remove();
+
+        tasksArray.splice(task_number,1);
+
+
     });
 
     let edit = document.createElement('button');
@@ -222,3 +238,7 @@ function renderTasks(tasks){
     tasks.forEach(task => taskBoard.insertBefore(addTaskToDOM(task),addTaskButton));
     
 }
+
+
+
+
