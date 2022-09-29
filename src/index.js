@@ -1,6 +1,8 @@
 import addTask from './CreateTask';
 import { tasksArray } from './CreateTask';
 
+var current = new Date();
+
 
 let addTaskButton = document.getElementById("addTaskButton");
 addTaskButton.style.display = "none";
@@ -248,6 +250,30 @@ function renderTasks(tasks){
 }
 
 
+let listAllTasks = document.querySelector('.all');
+
+listAllTasks.addEventListener('click', () =>{
+
+    taskBoardTitle.innerText = "All Tasks";
+    renderTasks(tasksArray);
+
+})
+
+let tasksDueToday = document.querySelector('.today');
+
+tasksDueToday.addEventListener('click',() => {
+
+    taskBoardTitle.innerText = "Tasks Due Today";
+
+    let tomorrow = new Date();
+    tomorrow.setDate(current.getDate()+1);
+
+    console.log((tomorrow));
+    console.log(tomorrow.toLocaleDateString());
+
+    renderTasks(tasksArray.filter(task => console.log(task.dueDate < (tomorrow.toLocaleDateString()))));
+
+})
 
 
 
