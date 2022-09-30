@@ -1,3 +1,4 @@
+import { da, ta } from 'date-fns/locale';
 import addTask from './CreateTask';
 import { tasksArray } from './CreateTask';
 
@@ -217,6 +218,8 @@ addProjectButton.addEventListener('click',()=>{
             currentProject = newP.innerText;
 
             (renderTasks(getTasks(currentProject)));
+            addTaskButton.style.display = "";
+
 
 
         });
@@ -259,6 +262,8 @@ listAllTasks.addEventListener('click', () =>{
     taskBoardTitle.innerText = "All Tasks";
     renderTasks(tasksArray);
 
+    addTaskButton.style.display = "none";
+
 })
 
 let tasksDueToday = document.querySelector('.today');
@@ -268,18 +273,65 @@ tasksDueToday.addEventListener('click',() => {
     taskBoardTitle.innerText = "Tasks Due Today";
 
     let tomorrow = new Date();
-    tomorrow.setDate(current.getDate()+1);
+    tomorrow = tomorrow.setDate(current.getDate());
 
-    //renderTasks(tasksArray.filter(task => (task.dueDate < (tomorrow.toLocaleDateString()))));
+    let bate = JSON.parse(JSON.stringify(tasksArray));
 
-
-    let a = tasksArray.forEach(task => task.dueDate.toUTCString());
-
+    bate = bate.filter(mask => (mask.date = (new Date(`${mask.date}`))));
     
+    let lessThan1 = bate.filter(dues => (((dues.date - tomorrow)/((1000 * 60 * 60 * 24))) <= 1 && ((dues.date - tomorrow)/((1000 * 60 * 60 * 24))) >= -1 ));
 
+    lessThan1 = lessThan1.filter(task => (task.date = ((task.date).toLocaleDateString())));
+
+    renderTasks(lessThan1);
+
+    addTaskButton.style.display = "none";
+})
+
+let tasksDueThisWeek = document.querySelector('.days7');
+
+tasksDueThisWeek.addEventListener('click',() => {
+    
+    taskBoardTitle.innerText = "Tasks Due Within 7 days";
+
+    let nextWeek = new Date();
+    nextWeek = nextWeek.setDate(current.getDate());
+
+    let fate = JSON.parse(JSON.stringify(tasksArray));
+
+    fate = fate.filter(mask => (mask.date = (new Date(`${mask.date}`))));
+    
+    let lessThan7 = fate.filter(dues => (((dues.date - nextWeek)/((1000 * 60 * 60 * 24))) <= 8 && ((dues.date - nextWeek)/((1000 * 60 * 60 * 24))) >= -1 ));
+
+    lessThan7 = lessThan7.filter(task => (task.date = ((task.date).toLocaleDateString())));
+
+    renderTasks(lessThan7);
+
+    addTaskButton.style.display = "none";
 })
 
 
+let longTermTasks = document.querySelector('.longterm');
+
+longTermTasks.addEventListener('click',() => {
+    
+    taskBoardTitle.innerText = "Tasks not due in 7 days";
+
+    let long = new Date();
+    long = long.setDate(current.getDate());
+
+    let gate = JSON.parse(JSON.stringify(tasksArray));
+
+    gate = gate.filter(mask => (mask.date = (new Date(`${mask.date}`))));
+    
+    let moreThan7 = gate.filter(dues => (((dues.date - long)/((1000 * 60 * 60 * 24))) >= 8));
+
+    moreThan7 = moreThan7.filter(task => (task.date = ((task.date).toLocaleDateString())));
+
+    renderTasks(moreThan7);
+
+    addTaskButton.style.display = "none";
+})
 
 
 
