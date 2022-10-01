@@ -212,6 +212,31 @@ addProjectButton.addEventListener('click',()=>{
         newP.innerText = taskBoardTitle.innerText;
         currentProject = newP.innerText;
 
+        let deleteProject = document.createElement('p');
+        deleteProject.innerText = "delete";
+
+
+        deleteProject.addEventListener('click',() => {
+
+            tasksArray = tasksArray.filter(task => task.project != newP.innerText);
+
+
+            if(newP.innerText == taskBoardTitle.innerText){
+                taskBoardTitle.innerText = "Switch to another project or create a new one";
+                addTaskButton.style.display = "none";
+
+                let allTasks = document.querySelectorAll(".task");
+
+                allTasks.forEach(task => task.remove());
+
+            }
+
+
+            newP.remove();
+            deleteProject.remove();
+            console.log(tasksArray);
+
+        })
 
         newP.addEventListener('click',()=>{
             taskBoardTitle.innerText = newP.innerText;
@@ -219,12 +244,11 @@ addProjectButton.addEventListener('click',()=>{
 
             (renderTasks(getTasks(currentProject)));
             addTaskButton.style.display = "";
-
-
-
         });
 
+
         listofProjects.appendChild(newP);
+        listofProjects.appendChild(deleteProject);
 
         addTaskButton.style.display = "";
         }
