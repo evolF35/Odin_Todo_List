@@ -20,6 +20,9 @@ let porjectAdd = false;
 
 let edit = false;
 
+let projectsArray = [];
+
+
 addTaskButton.addEventListener('click',() => {
 
     if(add == true){
@@ -33,8 +36,7 @@ addTaskButton.addEventListener('click',() => {
 
         let newTask = addTask(title,dDate,desCript,i,currentProject);
 
-        console.log(tasksArray);
-
+        addToLocalStorage();
 
         let pastForm = document.getElementById("inputs");
         pastForm.remove();
@@ -109,6 +111,8 @@ function addTaskToDOM(object){
         removal.remove();
 
         tasksArray.splice(task_number,1);
+        addToLocalStorage();
+
 
 
     });
@@ -126,7 +130,11 @@ function addTaskToDOM(object){
         let number = editor.lastChild;
         let huell = number.id;
         let task_number = huell.replace("_task,");
+
+
         tasksArray.splice(task_number,1);
+        addToLocalStorage();
+
 
 
         editor.remove();
@@ -201,7 +209,6 @@ addProjectButton.addEventListener('click',()=>{
 
     addTaskButton.style.display = "none";
 
-
     addPorjectButton.addEventListener('click',()=>{
         
         if(name.value != ""){
@@ -215,26 +222,31 @@ addProjectButton.addEventListener('click',()=>{
         let deleteProject = document.createElement('p');
         deleteProject.innerText = "delete";
 
-
         deleteProject.addEventListener('click',() => {
 
             tasksArray = tasksArray.filter(task => task.project != newP.innerText);
+            projectsArray = projectsArray.filter(project => project != newP.innerText); 
+            addToLocalStorage();
+
 
 
             if(newP.innerText == taskBoardTitle.innerText){
                 taskBoardTitle.innerText = "Switch to another project or create a new one";
+                
                 addTaskButton.style.display = "none";
 
                 let allTasks = document.querySelectorAll(".task");
 
                 allTasks.forEach(task => task.remove());
 
+
             }
 
 
             newP.remove();
             deleteProject.remove();
-            console.log(tasksArray);
+
+
 
         })
 
@@ -251,7 +263,17 @@ addProjectButton.addEventListener('click',()=>{
         listofProjects.appendChild(deleteProject);
 
         addTaskButton.style.display = "";
+
+
+        projectsArray.push(name.value);
+
+        addToLocalStorage();
+
         }
+
+        
+
+
     }
     );
 
@@ -358,5 +380,69 @@ longTermTasks.addEventListener('click',() => {
 })
 
 
+function addToLocalStorage(){
+    window.localStorage.setItem('taksArray',JSON.stringify(tasksArray));
+    window.localStorage.setItem('projectArray',JSON.stringify(projectsArray));
+}
+
+function renderLocalStorage(){
+
+    tasksArray = JSON.parse(window.localStorage.getItem(('taksArray')));
+    projectsArray = JSON.parse(window.localStorage.getItem(('projectArray')));
+
+    projectsArray.forEach(project => addProjecttoDOM(project));
+
+}
 
 
+function addProjecttoDOM(projectName){
+
+    taskBoardTitle.innerText = projectName;
+
+        let newP = document.createElement('p');
+        newP.innerText = taskBoardTitle.innerText;
+        currentProject = newP.innerText;
+
+        let deleteProject = document.createElement('p');
+        deleteProject.innerText = "delete";
+
+        deleteProject.addEventListener('click',() => {
+
+            tasksArray = tasksArray.filter(task => task.project != newP.innerText);
+
+
+            if(newP.innerText == taskBoardTitle.innerText){
+                taskBoardTitle.innerText = "Switch to another project or create a new one";
+                addTaskButton.style.display = "none";
+
+                let allTasks = document.querySelectorAll(".task");
+
+                allTasks.forEach(task => task.remove());
+
+            }
+
+
+            newP.remove();
+            deleteProject.remove();
+
+        })
+
+        newP.addEventListener('click',()=>{
+            taskBoardTitle.innerText = newP.innerText;
+            currentProject = newP.innerText;
+
+            (renderTasks(getTasks(currentProject)));
+            addTaskButton.style.display = "";
+        });
+
+
+        listofProjects.appendChild(newP);
+        listofProjects.appendChild(deleteProject);
+
+        addTaskButton.style.display = "";
+
+        }
+        
+
+
+        renderLocalStorage();
