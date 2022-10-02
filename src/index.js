@@ -226,7 +226,6 @@ addProjectButton.addEventListener('click',()=>{
 
             tasksArray = tasksArray.filter(task => task.project != newP.innerText);
             projectsArray = projectsArray.filter(project => project != newP.innerText); 
-            addToLocalStorage();
 
 
 
@@ -245,6 +244,8 @@ addProjectButton.addEventListener('click',()=>{
 
             newP.remove();
             deleteProject.remove();
+
+            addToLocalStorage();
 
 
 
@@ -392,6 +393,10 @@ function renderLocalStorage(){
 
     projectsArray.forEach(project => addProjecttoDOM(project));
 
+    taskBoardTitle.innerText = "Add a Project";
+    addTaskButton.style.display = "none";
+
+
 }
 
 
@@ -409,6 +414,8 @@ function addProjecttoDOM(projectName){
         deleteProject.addEventListener('click',() => {
 
             tasksArray = tasksArray.filter(task => task.project != newP.innerText);
+            projectsArray = projectsArray.filter(project => project != newP.innerText); 
+            addToLocalStorage();
 
 
             if(newP.innerText == taskBoardTitle.innerText){
