@@ -303,15 +303,19 @@ addProjectButton.addEventListener('click',()=>{
 
 function getTasks(project){
 
+    let tasks1 = [];
+
     if(tasksArray !== null){
-    let tasks = tasksArray.filter(task => task.project == project);
+    tasks1 = tasksArray.filter(task => task.project == project);
 }
 
-    return(tasks);
+    return(tasks1);
 }
 
 
-function renderTasks(tasks){
+function renderTasks(cats){
+
+
 
     let allTasks = document.querySelectorAll(".task");
 
@@ -320,8 +324,8 @@ function renderTasks(tasks){
     allTasks.forEach(task => task.remove());
     }
 
-    if(tasks !== null){
-    tasks.forEach(task => taskBoard.insertBefore(addTaskToDOM(task),addTaskButton));
+    if(cats !== null){
+    cats.forEach(task => taskBoard.insertBefore(addTaskToDOM(task),addTaskButton));
 }
 
 }
