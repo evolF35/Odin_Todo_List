@@ -4,6 +4,7 @@ import { tasksArray } from './CreateTask';
 
 
 let projectsArray = [];
+tasksArray = [];
 
 
 
@@ -36,9 +37,10 @@ addTaskButton.addEventListener('click',() => {
         let dDate = document.getElementById('dueDate').value;
         let desCript = document.getElementById('descriptionBar').value;
 
-        let newTask = addTask(title,dDate,desCript,i,currentProject);
 
-        if(tasksArray != null){
+        let newTask = addTask(title,dDate,desCript,i,currentProject);
+        
+        if(tasksArray !== null){
         addToLocalStorage();
         }
 
@@ -196,7 +198,7 @@ let addProjectButton = document.getElementById("addProjectButton");
 
 let listofProjects = document.querySelector(".listProjects");
 
-let allTasks = document.querySelectorAll(".task");
+//let allTasks = document.querySelectorAll(".task");
 
 addProjectButton.addEventListener('click',()=>{
 
@@ -204,7 +206,7 @@ addProjectButton.addEventListener('click',()=>{
     
     let allTasks = document.querySelectorAll(".task");
 
-    if(allTasks != null){
+    if(allTasks !== null){
     allTasks.forEach(task => task.remove());
     }
 
@@ -233,7 +235,7 @@ addProjectButton.addEventListener('click',()=>{
 
         deleteProject.addEventListener('click',() => {
 
-            if(tasksArray != null && projectsArray != null){
+            if(tasksArray !== null && projectsArray !== null){
             tasksArray = tasksArray.filter(task => task.project != newP.innerText);
             projectsArray = projectsArray.filter(project => project != newP.innerText); 
         }
@@ -246,7 +248,7 @@ addProjectButton.addEventListener('click',()=>{
 
                 let allTasks = document.querySelectorAll(".task");
 
-                if(allTasks != null){
+                if(allTasks !== null){
                 allTasks.forEach(task => task.remove());
                 }
 
@@ -277,10 +279,13 @@ addProjectButton.addEventListener('click',()=>{
 
         addTaskButton.style.display = "";
 
+        if(projectsArray !== null){
 
         projectsArray.push(name.value);
 
         addToLocalStorage();
+
+        }
 
         }
 
@@ -298,7 +303,7 @@ addProjectButton.addEventListener('click',()=>{
 
 function getTasks(project){
 
-    if(tasksArray != null){
+    if(tasksArray !== null){
     let tasks = tasksArray.filter(task => task.project == project);
 }
 
@@ -311,11 +316,11 @@ function renderTasks(tasks){
     let allTasks = document.querySelectorAll(".task");
 
 
-    if(allTasks != null){
+    if(allTasks !== null){
     allTasks.forEach(task => task.remove());
     }
 
-    if(tasks != null){
+    if(tasks !== null){
     tasks.forEach(task => taskBoard.insertBefore(addTaskToDOM(task),addTaskButton));
 }
 
@@ -344,7 +349,7 @@ tasksDueToday.addEventListener('click',() => {
 
     let bate = JSON.parse(JSON.stringify(tasksArray));
 
-    if(bate != null){
+    if(bate !== null){
     bate = bate.filter(mask => (mask.date = (new Date(`${mask.date}`))));
     
     
@@ -368,7 +373,7 @@ tasksDueThisWeek.addEventListener('click',() => {
 
     let fate = JSON.parse(JSON.stringify(tasksArray));
 
-    if(fate != null){
+    if(fate !== null){
     
     fate = fate.filter(mask => (mask.date = (new Date(`${mask.date}`))));
     
@@ -393,7 +398,7 @@ longTermTasks.addEventListener('click',() => {
 
     let gate = JSON.parse(JSON.stringify(tasksArray));
 
-    if(gate != null){
+    if(gate !== null){
     gate = gate.filter(mask => (mask.date = (new Date(`${mask.date}`))));
     
     let moreThan7 = gate.filter(dues => (((dues.date - long)/((1000 * 60 * 60 * 24))) >= 8));
@@ -408,16 +413,22 @@ longTermTasks.addEventListener('click',() => {
 
 
 function addToLocalStorage(){
+
+
     window.localStorage.setItem('taksArray',JSON.stringify(tasksArray));
     window.localStorage.setItem('projectArray',JSON.stringify(projectsArray));
 }
 
 function renderLocalStorage(){
 
+
+    
+
+
     tasksArray = JSON.parse(window.localStorage.getItem(('taksArray')));
     projectsArray = JSON.parse(window.localStorage.getItem(('projectArray')));
 
-    if(projectsArray != null){
+    if(projectsArray !== null){
     projectsArray.forEach(project => addProjecttoDOM(project));
     }
 
@@ -441,7 +452,7 @@ function addProjecttoDOM(projectName){
 
         deleteProject.addEventListener('click',() => {
 
-            if(tasksArray != null && projectsArray != null){
+            if(tasksArray !== null && projectsArray !== null){
 
             tasksArray = tasksArray.filter(task => task.project != newP.innerText);
             projectsArray = projectsArray.filter(project => project != newP.innerText); 
@@ -456,7 +467,7 @@ function addProjecttoDOM(projectName){
 
                 let allTasks = document.querySelectorAll(".task");
 
-                if(allTasks != null){
+                if(allTasks !== null){
                 allTasks.forEach(task => task.remove());
             }
 
