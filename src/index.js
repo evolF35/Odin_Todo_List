@@ -50,7 +50,9 @@ addTaskButton.addEventListener('click',() => {
         add = false;
         addTaskButton.innerText = "Create Task";
     }
+
     else{
+
     let aggregator = document.createElement("div");
     aggregator.setAttribute("id","inputs");
 
@@ -202,7 +204,9 @@ addProjectButton.addEventListener('click',()=>{
     
     let allTasks = document.querySelectorAll(".task");
 
+    if(allTasks != null){
     allTasks.forEach(task => task.remove());
+    }
 
     let name = document.createElement("input");
     name.placeholder = "Project_Name";
@@ -229,9 +233,10 @@ addProjectButton.addEventListener('click',()=>{
 
         deleteProject.addEventListener('click',() => {
 
+            if(tasksArray != null && projectsArray != null){
             tasksArray = tasksArray.filter(task => task.project != newP.innerText);
             projectsArray = projectsArray.filter(project => project != newP.innerText); 
-
+        }
 
 
             if(newP.innerText == taskBoardTitle.innerText){
@@ -293,7 +298,9 @@ addProjectButton.addEventListener('click',()=>{
 
 function getTasks(project){
 
+    if(tasksArray != null){
     let tasks = tasksArray.filter(task => task.project == project);
+}
 
     return(tasks);
 }
@@ -302,7 +309,11 @@ function getTasks(project){
 function renderTasks(tasks){
 
     let allTasks = document.querySelectorAll(".task");
+
+
+    if(allTasks != null){
     allTasks.forEach(task => task.remove());
+    }
 
     if(tasks != null){
     tasks.forEach(task => taskBoard.insertBefore(addTaskToDOM(task),addTaskButton));
@@ -333,14 +344,16 @@ tasksDueToday.addEventListener('click',() => {
 
     let bate = JSON.parse(JSON.stringify(tasksArray));
 
+    if(bate != null){
     bate = bate.filter(mask => (mask.date = (new Date(`${mask.date}`))));
+    
     
     let lessThan1 = bate.filter(dues => (((dues.date - tomorrow)/((1000 * 60 * 60 * 24))) <= 1 && ((dues.date - tomorrow)/((1000 * 60 * 60 * 24))) >= -1 ));
 
     lessThan1 = lessThan1.filter(task => (task.date = ((task.date).toLocaleDateString())));
 
     renderTasks(lessThan1);
-
+    }
     addTaskButton.style.display = "none";
 })
 
@@ -355,6 +368,8 @@ tasksDueThisWeek.addEventListener('click',() => {
 
     let fate = JSON.parse(JSON.stringify(tasksArray));
 
+    if(fate != null){
+    
     fate = fate.filter(mask => (mask.date = (new Date(`${mask.date}`))));
     
     let lessThan7 = fate.filter(dues => (((dues.date - nextWeek)/((1000 * 60 * 60 * 24))) <= 8 && ((dues.date - nextWeek)/((1000 * 60 * 60 * 24))) >= -1 ));
@@ -362,7 +377,7 @@ tasksDueThisWeek.addEventListener('click',() => {
     lessThan7 = lessThan7.filter(task => (task.date = ((task.date).toLocaleDateString())));
 
     renderTasks(lessThan7);
-
+    }
     addTaskButton.style.display = "none";
 })
 
@@ -378,6 +393,7 @@ longTermTasks.addEventListener('click',() => {
 
     let gate = JSON.parse(JSON.stringify(tasksArray));
 
+    if(gate != null){
     gate = gate.filter(mask => (mask.date = (new Date(`${mask.date}`))));
     
     let moreThan7 = gate.filter(dues => (((dues.date - long)/((1000 * 60 * 60 * 24))) >= 8));
@@ -386,6 +402,7 @@ longTermTasks.addEventListener('click',() => {
 
     renderTasks(moreThan7);
 
+    }
     addTaskButton.style.display = "none";
 })
 
@@ -424,9 +441,13 @@ function addProjecttoDOM(projectName){
 
         deleteProject.addEventListener('click',() => {
 
+            if(tasksArray != null && projectsArray != null){
+
             tasksArray = tasksArray.filter(task => task.project != newP.innerText);
             projectsArray = projectsArray.filter(project => project != newP.innerText); 
             addToLocalStorage();
+
+        }
 
 
             if(newP.innerText == taskBoardTitle.innerText){
@@ -435,7 +456,9 @@ function addProjecttoDOM(projectName){
 
                 let allTasks = document.querySelectorAll(".task");
 
+                if(allTasks != null){
                 allTasks.forEach(task => task.remove());
+            }
 
             }
 
