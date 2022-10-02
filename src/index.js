@@ -304,7 +304,7 @@ function renderTasks(tasks){
     let allTasks = document.querySelectorAll(".task");
     allTasks.forEach(task => task.remove());
 
-    if(task != null){
+    if(tasks != null){
     tasks.forEach(task => taskBoard.insertBefore(addTaskToDOM(task),addTaskButton));
 }
 
