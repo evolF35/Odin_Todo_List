@@ -3,6 +3,9 @@ import addTask from './CreateTask';
 import { tasksArray } from './CreateTask';
 
 
+let projectsArray = [];
+
+
 
 var current = new Date();
 
@@ -20,7 +23,6 @@ let porjectAdd = false;
 
 let edit = false;
 
-let projectsArray = [];
 
 
 addTaskButton.addEventListener('click',() => {
@@ -36,7 +38,9 @@ addTaskButton.addEventListener('click',() => {
 
         let newTask = addTask(title,dDate,desCript,i,currentProject);
 
+        if(tasksArray != null){
         addToLocalStorage();
+        }
 
         let pastForm = document.getElementById("inputs");
         pastForm.remove();
@@ -197,6 +201,7 @@ addProjectButton.addEventListener('click',()=>{
     taskBoardTitle.innerText = "";
     
     let allTasks = document.querySelectorAll(".task");
+
     allTasks.forEach(task => task.remove());
 
     let name = document.createElement("input");
@@ -236,7 +241,9 @@ addProjectButton.addEventListener('click',()=>{
 
                 let allTasks = document.querySelectorAll(".task");
 
+                if(allTasks != null){
                 allTasks.forEach(task => task.remove());
+                }
 
 
             }
@@ -297,8 +304,10 @@ function renderTasks(tasks){
     let allTasks = document.querySelectorAll(".task");
     allTasks.forEach(task => task.remove());
 
+    if(task != null){
     tasks.forEach(task => taskBoard.insertBefore(addTaskToDOM(task),addTaskButton));
-    
+}
+
 }
 
 
@@ -391,7 +400,9 @@ function renderLocalStorage(){
     tasksArray = JSON.parse(window.localStorage.getItem(('taksArray')));
     projectsArray = JSON.parse(window.localStorage.getItem(('projectArray')));
 
+    if(projectsArray != null){
     projectsArray.forEach(project => addProjecttoDOM(project));
+    }
 
     taskBoardTitle.innerText = "Add a Project";
     addTaskButton.style.display = "none";
